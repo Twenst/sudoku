@@ -44,3 +44,12 @@ let absentSurBloc k tab i j =
   while not !present && (!u < n || !v < n) do
     
 ;;
+
+let remplir g =
+  let nbl = Array.length g in
+  let rec aux p =
+    if p = nbl*nbl then true
+    else
+      begin
+        let i = p/nbl and j = p mod nbl in
+        if g.(i).(j) <> 0 then aux (p+1)
