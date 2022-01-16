@@ -24,7 +24,7 @@ let grilleVide = [|
   |]
 ;;
 
-let absentSurLigne k tab i =
+let absentSurLigne k tab i = (*retourne un bouléen selon si le nombre k est trouvé dans la ligne i*)
   let len = (Array.length tab)
   in
   let rec aux tab j =
@@ -36,7 +36,7 @@ let absentSurLigne k tab i =
   in aux tab 0
 ;;
 
-let absentSurCol k tab i =
+let absentSurCol k tab i = (*retourne un bouléen selon si le nombre k est trouvé dans la col i*)
   let present = ref false and j = ref 0 
   in
   while not !present && !j < Array.length tab do
@@ -47,7 +47,7 @@ let absentSurCol k tab i =
   not !present
 ;;
 
-let absentSurBloc k g l c =
+let absentSurBloc k g l c = (*retourne un bouléen selon si le nombre k est trouvé dans le bloc de i et j*)
   let n = int_of_float(sqrt(float_of_int(Array.length g))) in
   let u = l-(l mod n) and v = c-(c mod n) in (* l ligne du premier élément, c colonne du premier élément *)
   try
@@ -60,7 +60,7 @@ let absentSurBloc k g l c =
   with Exit -> false
 ;;
 
-let afficheGrille tab =
+let afficheGrille tab = (*faut pas essayer de comprendre mais ca fait le job*)
   let nbl = Array.length tab
   in
   let n = int_of_float (sqrt (float_of_int nbl))
@@ -85,13 +85,16 @@ let afficheGrille tab =
     | x, _ -> print_int tab.(y).(x); (print_string " ");  aux (x+1) y
   in aux 0 0
 ;;
+
 afficheGrille grille;;
 
-exception Trouve;;  
+exception Trouve;;
+
 let remplir tab =
   let nbl = Array.length tab in
   let rec aux p =
-    if p = nbl*nbl then true
+    if p = nbl*nbl then true (*nbl*nbl est l'index de la derniere case + 1, 
+    si on est arrivé jusque la c'est que le sudoku est rempli*)
     else
       begin
         let j = p/nbl and i = p mod nbl in
